@@ -1,0 +1,34 @@
+{
+  "name": "FinanceFlow — Client & Finance Management",
+  "short_name": "FinanceFlow",
+  "description": "ক্লায়েন্ট, কাজ, পাওনা-পরিশোধ ও আর্থিক হিসাব এক জায়গায় পরিচালনার ওয়েব অ্যাপ।",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b1f1d",
+  "theme_color": "#0f766e",
+  "lang": "bn",
+  "dir": "ltr",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

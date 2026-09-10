@@ -1,42 +1,46 @@
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { StoreProvider } from "@/lib/store";
+import { Layout } from "@/components/Layout";
+import { InstallPrompt } from "@/components/InstallPrompt";
+import Dashboard from "./pages/Dashboard";
+import Clients from "./pages/Clients";
+import ClientProfile from "./pages/ClientProfile";
+import PersonalFinance from "./pages/PersonalFinance";
+import BankAccounts from "./pages/BankAccounts";
+import Reports from "./pages/Reports";
+import Categories from "./pages/Categories";
+import NotFound from "./pages/NotFound";
 
+const queryClient = new QueryClient();
 
-function Router() {
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <StoreProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients/:id" element={<ClientProfile />} />
+              <Route path="/finance" element={<PersonalFinance />} />
+              <Route path="/accounts" element={<BankAccounts />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/settings" element={<Categories />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Layout>
+          <InstallPrompt />
+        </BrowserRouter>
+      </TooltipProvider>
+    </StoreProvider>
+  </QueryClientProvider>
+);
 
 export default App;
